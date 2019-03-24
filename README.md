@@ -19,8 +19,11 @@ The vehicle is controlled by two PID controllers. One of them takes the cross tr
 
 
 #### Parameter Tuning
-Initially, the throttle was constant, and the parameters of the PID controller for steering were chosen to be P = 0.2, I = 0.004, D = 3.0. Sebastian Thrun proposed these values is his [online course on udacity.com](https://www.udacity.com/course/artificial-intelligence-for-robotics--cs373). Parameters worked quite well, and the car was able to complete the full circle with no tire leaving the drivable portion of the track surface.
-However, the driving was not smooth, and the twiddle algorithm was utilized to tune the parameters of the PID controller for steering. After a few iterations, the PID controller for throttle was turned on. At that moment parameters for steering PID controller were P=0.61, I=0.0155, D=13.0 and for throttle PID controller -- P=2.0, I=0.0, D=3.0. Then, there were a few more iterations after which there was a manual fine tuning again. The result parameters for the PID controllers are as follows: steering PID controller -- P=0.15, I=0.0165, D=5.0; throttle PID controller -- P=7.0, I=0.0, D=0.5.  With these parameters, the car can drive with the average speed more than 30 mph and smooth enough, without leaving the road surface.
+Initially, the throttle was constant, and the parameters of the PID controller for steering were chosen to be P = 0.2, I = 0.004, D = 3.0. 
+These parameters are given in video lessons. These parameters worked quite well, and the car was able to complete the full circle with no tire leaving the drivable portion of the track surface.
+
+However, the driving was not smooth. There are still many oscillations in steep lane corner. The twiddle algorithm was utilized to tune the parameters of the PID controller for steering. After a few iterations, the PID controller for throttle was turned on. At that moment parameters for steering PID controller were P=0.64, I=0.0238, D=14.0 and for throttle PID controller -- P=2.0, I=0.0, D=3.0. Then, there were a few more iterations after which there was a manual fine tuning again. Basically, larger P for steer needs larger P for throttle so that the speed is low enough for relatively big steer angle. And although we use D to
+make steer smooth but we still need to choose relatively small P to reduce oscillations (for steer value). The result parameters for the PID controllers are as follows: steering PID controller -- P=0.15, I=0.0188, D=5.0; throttle PID controller -- P=6.0, I=0.0, D=2.0.  With these parameters, the car can drive with the average speed close to 30 mph and smooth enough, without leaving the road surface.
 
 ---
 
