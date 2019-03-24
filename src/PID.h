@@ -4,6 +4,20 @@
 class PID {
  public:
   /**
+   * PID Errors
+   */
+  double p_error;
+  double i_error;
+  double d_error;
+
+  /**
+   * PID Coefficients
+   */ 
+  double Kp;
+  double Ki;
+  double Kd;
+
+  /**
    * Constructor
    */
   PID();
@@ -17,8 +31,9 @@ class PID {
    * Initialize PID.
    * @param (Kp_, Ki_, Kd_) The initial PID coefficients
    */
-  void Init(double Kp_, double Ki_, double Kd_);
-
+  void Init(double Kp, double Ki, double Kd, unsigned int calc_tot_err_after, unsigned int tune_coeffs_each,
+            double twiddle_dKp_initial, double twiddle_dKi_initial, double twiddle_dKd_initial,
+            double twiddle_tolerance);
   /**
    * Update the PID error variables given cross track error.
    * @param cte The current cross track error
@@ -32,19 +47,32 @@ class PID {
   double TotalError();
 
  private:
-  /**
-   * PID Errors
-   */
-  double p_error;
-  double i_error;
-  double d_error;
+  /*
+  * Helper variables
+  */
+  unsigned int _calc_tot_err_after;
+  unsigned int _tune_coeffs_each;
+  unsigned long long _step_cnt;
 
-  /**
-   * PID Coefficients
-   */ 
-  double Kp;
-  double Ki;
-  double Kd;
+  /*
+  * Helper variables for TWIDDLE algorithm
+  */
+  double _dKp;
+  double _dKi;
+  double _dKd;
+  double _tol;
+  double _best_err;
+  double _total_err;
+  int _coeff_ind;
+  int _attempts_per_ind;
+
+  /*
+  * Tune parameters in accordance with the "TWIDDLE" algorithm for parameter tuning.
+  */
+  void TuneCoeffsUsingTwiddleAlg();
+
+  double &IndToCoeff(int ind);
+  double &IndToDeltaCoeff(int ind);
 };
 
 #endif  // PID_H
