@@ -49,8 +49,8 @@ int main() {
   // steering: no twiddle -- P=0.15, I=0.0188, D=5.0; throttle: no twiddle P=4.5, I=0.0, D=8.0
   // steering: no twiddle -- P=0.15, I=0.0188, D=5.0; throttle: no twiddle P=6.0, I=0.0, D=2.0
 
-  pid_steer.Init(0.15, 0.0188, 5.0, 30, 0, 0.1, 0.005, 1.0, 0.2);
-  pid_throttle.Init(6.0, 0.0, 2.0, 30, 0, 0.5, 0.005, 1.0, 0.1);
+  pid_steer.Init(0.15, 0.0165, 5.0, 30, 0, 0.1, 0.005, 1.0, 0.2);
+  pid_throttle.Init(7.0, 0.0, 1.0, 30, 0, 0.5, 0.005, 1.0, 0.1);
   
   h.onMessage([&pid_steer, &pid_throttle, &ob_cnt](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, 
                      uWS::OpCode opCode) {
